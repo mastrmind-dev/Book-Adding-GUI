@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import librarymanagementsystem.database.DatabaseHandler;
 
 /**
  * FXML Controller class
@@ -33,12 +34,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private JFXButton cancelButton;
 
-    /**
-     * Initializes the controller class.
-     */
+    DatabaseHandler databaseHandler;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        databaseHandler = new DatabaseHandler();
     }    
 
     @FXML
