@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import librarymanagementsystem.database.DatabaseHandler;
 
 /**
@@ -43,6 +44,46 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void addBook(ActionEvent event) {
+        String bookID = id.getText();
+        String bookTitle = title.getText();
+        String bookAuthor = author.getText();
+        String bookPublisher = publisher.getText();
+    
+        if (bookAuthor.isEmpty() || bookID.isEmpty() || bookPublisher.isEmpty() || bookTitle.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter in all fields");
+            alert.showAndWait();
+            return;
+        }
+        /**
+         * stmt.execute("CREATE TABLE " + TABLE_NAME + "("
+                        +"id varchar(200) primary key,\n"
+                        +"title varchar(200),\n"
+                        +"author varchar(200),\n"
+                        +"publisher varchar(100),\n"
+                        +"isAvail boolean default true"
+                        +")");
+         */
+        String qu = "INSERT INTO BOOK VALUES ("+
+                "'" + bookID + "',"+
+                "'" + bookTitle + "',"+
+                "'" + bookAuthor + "',"+
+                "'" + bookPublisher + "',"+
+                "" + true + ""+
+                ")";
+        System.out.println(qu);
+        if(databaseHandler.execAction(qu)){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Success");
+            alert.showAndWait();
+        } else{//Error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Failed");
+            alert.showAndWait();
+        }
     }
 
     @FXML
