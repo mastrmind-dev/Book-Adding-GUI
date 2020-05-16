@@ -45,7 +45,10 @@ public class DatabaseHandler {
             if (tables.next()) {
                 System.out.println("Table " + TABLE_NAME + " already exists. Ready for go!");
             } else{
-                stmt.execute("CREATE TABLE " + TABLE_NAME + "("
+                stmt.executeUpdate("CREATE TABLE " + TABLE_NAME + "(" /**
+                 * executeUpdate is used for all the queries except SELECT queries. If you are hesitated about what method to use, you can use just "execute"
+                 * method for "all the queries". (see next comment, not so far, scroll a little bit)
+                 */ 
                         +"id varchar(200) primary key,\n"
                         +"title varchar(200),\n"
                         +"author varchar(200),\n"
@@ -64,7 +67,7 @@ public class DatabaseHandler {
         ResultSet result;
         try {
             stmt = conn.createStatement();
-            result = stmt.executeQuery(query);
+            result = stmt.executeQuery(query);//executeQuery is only for SELECT queries or you can use "execute".
         } catch (SQLException ex) {
             System.out.println("Exception at execQuery:dataHandler" + ex.getLocalizedMessage());
             return null;
